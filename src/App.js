@@ -1,23 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { addToCart } from './store/cartSlice';
 
 function App() {
+
+  const dispatch = useDispatch();
+
+  const { products, cart, total } = useSelector( (state) => state.cart );
+
+  const handleSelect = (e) => {
+    const productValue = parseInt(e.target.value);
+    dispatch(addToCart(productValue));
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <select onChange={(e) => handleSelect(e)}>
+        {products.map((product, index) => {
+          return(
+            <option value={product.price} key={index}>{product.name}</option>
+          );
+        })}
+      </select>
+
+      <div>
+        <h2>Total Amount</h2>
+        <p>{total}</p>
+      </div>
     </div>
   );
 }
