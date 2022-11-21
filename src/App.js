@@ -5,7 +5,7 @@ function App() {
 
   const dispatch = useDispatch();
 
-  const { products, cart, total } = useSelector( (state) => state.cart );
+  const { products, total } = useSelector( (state) => state.cart );
 
   const handleSelect = (e) => {
     const productValue = parseInt(e.target.value);
